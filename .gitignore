@@ -1,0 +1,14 @@
+*.log
+*.conf
+*.fsdb
+*.rc
+*.key
+*verdiLog
+*simv.daidir
+*simv
+*csrc
+*.rep
+*WORK
+*.vcd
+*.svf
+*.vh
