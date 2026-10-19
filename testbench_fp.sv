@@ -4,7 +4,7 @@
 // Project Name: 	 Floating Point Project
 //
 // Description:	 Self-checking testbench for the combinational FP8 (E3M4)
-//						 adder/subtractor (FPAddSub) and multiplier (FPMult).
+//						 adder (FPAdd) and multiplier (FPMult).
 //
 //						 FP8 E3M4 format: [7] sign, [6:4] exponent (bias 3), [3:0] mantissa
 //						 Special values : exponent 0 = zero (denormals flushed to zero)
