@@ -1,6 +1,4 @@
-
-timeunit 1ns
-timeprecision 1ps
+`timescale 1ns/1ps
 
 `define DWIDTH 8
 `define AWIDTH 10
