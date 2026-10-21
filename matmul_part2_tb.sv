@@ -8,6 +8,8 @@ module matmul_part2_tb;
   wire done;
   reg [3:0] flags_seen = 0;
   integer i;
+  integer errors = 0;
+  reg [31:0] expected_word;
 
   matrix_multiplication u_matmul (
       .clk(clk), .resetn(resetn), .pe_resetn(pe_resetn),
@@ -62,12 +64,35 @@ module matmul_part2_tb;
       $display("CASE %0d DONE: flags_seen=%b current_flags=%b time=%0t", number, flags_seen, fp_flags, $time);
       @(negedge clk); start = 0;
       repeat (4) @(negedge clk);
-      for (i=0; i<4; i=i+1)
+      for (i=0; i<4; i=i+1) begin
         $display("CASE %0d C RAM[%0d] = %08h", number, i, u_matmul.matrix_C.ram[i]);
-      if (number == 1 && flags_seen !== 4'b0)
-        $display("WARNING: normal FP8 case asserted flags; inspect arithmetic and waveforms");
-      if (number == 2 && !flags_seen[1])
-        $display("WARNING: expected invalid exception flag was not observed");
+        if (number == 1) begin
+          case (i)
+            0: expected_word = 32'h5c60605c;
+            1: expected_word = 32'h605c5c60;
+            2: expected_word = 32'h605c605c;
+            3: expected_word = 32'h60646262;
+          endcase
+          if (u_matmul.matrix_C.ram[i] !== expected_word) begin
+            errors = errors + 1;
+            $display("FAIL CASE 1 RAM[%0d]: expected %08h, got %08h", i, expected_word, u_matmul.matrix_C.ram[i]);
+          end else $display("PASS CASE 1 RAM[%0d]", i);
+        end
+      end
+      if (number == 1) begin
+        if (flags_seen !== 4'b0) begin
+          errors = errors + 1;
+          $display("FAIL CASE 1 flags: expected 0000, got %b", flags_seen);
+        end else $display("PASS CASE 1 flags");
+      end
+      if (number == 2) begin
+        // Only assert flag behavior here; exceptional-result values must be
+        // checked against the Part 1 FP8 arithmetic specification separately.
+        if (flags_seen[1] !== 1'b1) begin
+          errors = errors + 1;
+          $display("FAIL CASE 2 invalid flag: expected bit 1 asserted, got %b", flags_seen);
+        end else $display("PASS CASE 2 invalid flag");
+      end
     end
   endtask
 
@@ -75,6 +100,8 @@ module matmul_part2_tb;
     $fsdbDumpvars;
     run_case(1);
     run_case(2);
+    if (errors != 0) $fatal(1, "LAB3 PART2: %0d check(s) failed", errors);
+    $display("LAB3 PART2: all implemented checks passed");
     $finish;
   end
 
