@@ -27,7 +27,11 @@ module matmul_part2_tb;
 
   task automatic load_normal;
     begin
-      // Values: FP8 E3M4 0x30=1, 0x40=2, 0x20=0.5.
+      // Values: FP8 E3M4 
+      // 0x20 = 0.5
+      // 0x30 = 1.0
+      // 0x38 = 1.5
+      // 0x40 = 2.0
       // Existing RAM loading convention: A columns, B rows, with reversed lane order.
       u_matmul.matrix_A.ram[0] = {8'h40,8'h30,8'h40,8'h20};
       u_matmul.matrix_A.ram[1] = {8'h40,8'h30,8'h30,8'h40};
@@ -68,10 +72,10 @@ module matmul_part2_tb;
         $display("CASE %0d C RAM[%0d] = %08h", number, i, u_matmul.matrix_C.ram[i]);
         if (number == 1) begin
           case (i)
-            0: expected_word = 32'h5c60605c;
-            1: expected_word = 32'h605c5c60;
-            2: expected_word = 32'h605c605c;
-            3: expected_word = 32'h60646262;
+            0: expected_word = 32'h5c5c605a;
+            1: expected_word = 32'h54545652;
+            2: expected_word = 32'h605a6058;
+            3: expected_word = 32'h5e60615e;
           endcase
           if (u_matmul.matrix_C.ram[i] !== expected_word) begin
             errors = errors + 1;
