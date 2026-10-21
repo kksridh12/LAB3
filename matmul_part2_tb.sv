@@ -29,16 +29,16 @@ module matmul_part2_tb;
     begin
       // Values: FP8 E3M4 0x30=1, 0x40=2, 0x20=0.5.
       // Existing RAM loading convention: A columns, B rows, with reversed lane order.
-      // A = [1 2 1 2; 2 1 2 1; 1 1 2 2; 2 2 1 1]
-      // B = [1 1 2 1; 1 2 1 1; 2 1 1 2; 1 1 1 2]
-      u_matmul.matrix_A.ram[0] = {8'h40,8'h30,8'h40,8'h30};
+      u_matmul.matrix_A.ram[0] = {8'h40,8'h30,8'h40,8'h20};
       u_matmul.matrix_A.ram[1] = {8'h40,8'h30,8'h30,8'h40};
-      u_matmul.matrix_A.ram[2] = {8'h30,8'h40,8'h40,8'h30};
+      u_matmul.matrix_A.ram[2] = {8'h30,8'h38,8'h40,8'h30};
       u_matmul.matrix_A.ram[3] = {8'h30,8'h40,8'h30,8'h40};
+
+      // Matrix B, stored by rows with reversed lane order.
       u_matmul.matrix_B.ram[0] = {8'h30,8'h40,8'h30,8'h30};
-      u_matmul.matrix_B.ram[1] = {8'h30,8'h30,8'h40,8'h30};
+      u_matmul.matrix_B.ram[1] = {8'h30,8'h30,8'h20,8'h30};
       u_matmul.matrix_B.ram[2] = {8'h40,8'h30,8'h30,8'h40};
-      u_matmul.matrix_B.ram[3] = {8'h40,8'h30,8'h30,8'h30};
+      u_matmul.matrix_B.ram[3] = {8'h38,8'h30,8'h30,8'h30};
     end
   endtask
 
