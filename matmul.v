@@ -772,7 +772,7 @@ module systolic_pe_matrix(
     output [`DWIDTH-1:0] matrixC33;
     output [`MAT_MUL_SIZE*`DWIDTH-1:0] a_data_out;
     output [`MAT_MUL_SIZE*`DWIDTH-1:0] b_data_out;
-    output [`FWIDTH-1:0] flags;
+    output logic [`FWIDTH-1:0] flags;
 
     wire [`FWIDTH-1:0] pe00_f, pe01_f, pe02_f, pe03_f;
     wire [`FWIDTH-1:0] pe10_f, pe11_f, pe12_f, pe13_f;
@@ -809,9 +809,9 @@ module systolic_pe_matrix(
 	processing_element pe03(.reset(effective_rst), .clk(clk), .in_a(a02to03), .in_b(b3), .flags(pe03_f), .out_a(a03to04), .out_b(b03to13), .out_c(matrixC03));
 
 	processing_element pe10(.reset(effective_rst), .clk(clk), .in_a(a1),      .in_b(b00to10), .flags(pe10_f), .out_a(a10to11), .out_b(b10to20), .out_c(matrixC10));
-	processing_element pe11(.reset(effective_rst), .clk(clk), .in_a(a10to11), .in_b(b01to11), .flags(pe10_f), .out_a(a11to12), .out_b(b11to21), .out_c(matrixC11));
-	processing_element pe12(.reset(effective_rst), .clk(clk), .in_a(a11to12), .in_b(b02to12), .flags(pe10_f), .out_a(a12to13), .out_b(b12to22), .out_c(matrixC12));
-	processing_element pe13(.reset(effective_rst), .clk(clk), .in_a(a12to13), .in_b(b03to13), .flags(pe10_f), .out_a(a13to14), .out_b(b13to23), .out_c(matrixC13));
+    processing_element pe11(.reset(effective_rst), .clk(clk), .in_a(a10to11), .in_b(b01to11), .flags(pe11_f), .out_a(a11to12), .out_b(b11to21), .out_c(matrixC11));
+    processing_element pe12(.reset(effective_rst), .clk(clk), .in_a(a11to12), .in_b(b02to12), .flags(pe12_f), .out_a(a12to13), .out_b(b12to22), .out_c(matrixC12));
+    processing_element pe13(.reset(effective_rst), .clk(clk), .in_a(a12to13), .in_b(b03to13), .flags(pe13_f), .out_a(a13to14), .out_b(b13to23), .out_c(matrixC13));
 
 	processing_element pe20(.reset(effective_rst), .clk(clk), .in_a(a2),      .in_b(b10to20), .flags(pe20_f), .out_a(a20to21), .out_b(b20to30), .out_c(matrixC20));
 	processing_element pe21(.reset(effective_rst), .clk(clk), .in_a(a20to21), .in_b(b11to21), .flags(pe21_f), .out_a(a21to22), .out_b(b21to31), .out_c(matrixC21));
@@ -893,7 +893,7 @@ module seq_mac(a, b, out, flags,reset, clk);
     input reset;
     input clk;
     output [`DWIDTH-1:0] out;
-    output [`FWIDTH-1:0] flags;
+    output reg [`FWIDTH-1:0] flags;
 
     reg [`DWIDTH-1:0] out;
     reg [`DWIDTH-1:0] a_flop, b_flop, mult;
@@ -904,7 +904,7 @@ module seq_mac(a, b, out, flags,reset, clk);
     wire [`FWIDTH-1:0] add_flags;
 
     FPMult u_mult (.a(a_flop), .b(b_flop), .result(mult_ab), .flags(mult_flags));
-    FPAddSub u_addsub (.a(out), .b(mult_ab), .operation(1'b0), .result(add_mult_out), .flags(add_flags));
+    FPAdd u_addsub (.a(out), .b(mult_ab), .result(add_mult_out), .flags(add_flags));
 
     always @(posedge clk)
     begin
