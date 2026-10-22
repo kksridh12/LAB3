@@ -2,7 +2,7 @@ Magic 271485
 Revision Verdi_W-2024.09-SP2-3
 
 ; Window Layout <x> <y> <width> <height> <signalwidth> <valuewidth>
-viewPort 0 11 1920 418 100 65
+viewPort 0 11 1920 439 245 65
 
 ; File list:
 ; openDirFile [-d delimiter] [-s time_offset] [-rf auto_bus_rule_file] path_name file_name
@@ -16,8 +16,8 @@ signalSpacing 5
 
 ; windowTimeUnit is used for zoom, cursor & marker
 ; waveform viewport range
-zoom 0.000000 212100.000000
-cursor 0.000000
+zoom 179893.841567 207200.760141
+cursor 150000.000000
 marker 0.000000
 
 ; user define markers
@@ -25,7 +25,7 @@ marker 0.000000
 ; visible top row signal index
 top 0
 ; marker line index
-markerPos 9
+markerPos 19
 
 ; event list
 ; addEvent event_name event_expression
@@ -45,17 +45,27 @@ COMPLEX_EVENT_END
 curSTATUS ByChange
 
 
-addGroup "G1"
+addGroup "G1" -e FALSE
 activeDirFile "" "/home/a34137_asu/Documents/LAB3/sim_fpmac/novas.fsdb"
 addSignal -h 16 -UNSIGNED -HEX /testbench_fp/add_a[7:0]
 addSignal -h 16 -UNSIGNED -HEX -holdScope add_b[7:0]
 addSignal -h 16 -UNSIGNED -HEX -holdScope add_result[7:0]
-addSignal -h 16 -UNSIGNED -HEX -holdScope add_flags[3:0]
+addSignal -h 16 /testbench_fp/u_add/FG
+addSignal -h 16 -holdScope R
+addSignal -h 16 -holdScope S
+addSignal -h 16 /testbench_fp/u_add/Exceptionmodule/Overflow
+addSignal -h 16 -holdScope Underflow
+addSignal -h 16 /testbench_fp/u_add/InfDiff
+addSignal -h 16 /testbench_fp/u_add/Exceptionmodule/Inexact
 addGroup "G2"
 addSignal -h 16 -UNSIGNED -HEX /testbench_fp/mul_a[7:0]
 addSignal -h 16 -UNSIGNED -HEX -holdScope mul_b[7:0]
 addSignal -h 16 -UNSIGNED -HEX -holdScope mul_result[7:0]
-addSignal -h 16 -UNSIGNED -HEX -holdScope mul_flags[3:0]
+addSignal -h 16 /testbench_fp/u_mult/overflow
+addSignal -h 16 /testbench_fp/u_mult/RoundModule/Underflow
+addSignal -h 16 /testbench_fp/u_mult/invalid
+addSignal -h 16 -holdScope Inexact
+addSignal -h 16 /testbench_fp/u_mult/RoundModule/GRS
 addGroup "G3"
 
 ; getSignalForm Scope Hierarchy Status

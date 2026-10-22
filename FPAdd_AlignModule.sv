@@ -3,7 +3,7 @@
 // Module Name:    	FPAdd_AlignModule
 //
 // Description:	 	The alignment module determines the larger input operand and
-//							sets the mantissas, shift and common exponent accordingly.
+//					sets the mantissas, shift and common exponent accordingly.
 //
 //////////////////////////////////////////////////////////////////////////////////
 

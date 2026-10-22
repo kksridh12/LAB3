@@ -11,7 +11,6 @@
 //	Inputs:
 //				a (8 bits)			: FP8 E3M4 floating point number
 //				b (8 bits)			: FP8 E3M4 floating point number
-//				operation (1 bit)	: Single control bit. 0/Addition, 1/Subtraction
 //
 //
 // Outputs:

@@ -35,7 +35,7 @@ module FPMult (
 	FPMult_RoundModule RoundModule(.RoundM(RoundM), .RoundMP(RoundMP), .RoundE(RoundE), .RoundEP(RoundEP), .Sp(Sp), .GRS(GRS), .Inexact(Inexact), .Z(Z_int), .Flags(Flags_int));
 
 	// Special inputs: an all-zero exponent is treated as zero (subnormals flushed to zero)
-	logic AZero, BZero, AnyZero, AnyInf, AnyNaN, Special;
+	logic AZero, BZero, AnyZero, AnyInf, AnyNaN, Special, invalid, overflow;
 	logic [7:0] SpecialRes;
 	logic [3:0] SpecialFlags;
 
@@ -52,8 +52,10 @@ module FPMult (
 	                    (AnyInf & AnyZero) ? 8'h7F :
 	                    AnyInf ? {Sp, 3'b111, 4'b0000} : {Sp, 7'b0000000} ;
 
+    assign overflow = AnyInf;
+    assign invalid = (AnyNaN | (AnyInf & AnyZero));
 	// Same convention as FPAddSub: Inf inputs set Overflow, NaN inputs and 0 * Inf set Invalid
-	assign SpecialFlags = {AnyInf, 1'b0, (AnyNaN | (AnyInf & AnyZero)), 1'b0} ;
+	assign SpecialFlags = {overflow, 1'b0, invalid, 1'b0} ;
 
 	assign result = Special ? SpecialRes : Z_int ;
 	assign flags = Special ? SpecialFlags : Flags_int ;	// {Overflow, Underflow, Invalid, Inexact}

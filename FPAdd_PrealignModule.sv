@@ -3,8 +3,8 @@
 // Module Name:    	FPAdd_PrealignModule
 //
 // Description:	 	The pre-alignment module is responsible for taking the inputs
-//							apart and checking the parts for exceptions.
-//							The exponent difference is also calculated in this module.
+//					apart and checking the parts for exceptions.
+//					The exponent difference is also calculated in this module.
 //
 //////////////////////////////////////////////////////////////////////////////////
 

@@ -3,7 +3,7 @@
 // Module Name:    FPAdd_ExceptionModule
 //
 // Description:	 Check the final result for exception conditions and set
-//						 flags accordingly.
+//				 flags accordingly.
 //
 //////////////////////////////////////////////////////////////////////////////////
 
