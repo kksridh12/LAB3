@@ -694,7 +694,7 @@ module matmul_with_ram_8x8_test2_tb;
 
 
 
-            $display("*** PART III TEST 1 PASS ***");
+            $display("*** PART III TEST 2 PASS ***");
 
 
 
@@ -704,7 +704,7 @@ module matmul_with_ram_8x8_test2_tb;
 
 
 
-            $display("*** PART III TEST 1 FAIL ***");
+            $display("*** PART III TEST 2 FAIL ***");
 
 
 

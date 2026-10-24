@@ -2,7 +2,7 @@
 # Run from LAB3/synth_p2 with: dc_shell-t -f compile_fp8.tcl
 set my_toplevel matmul_4x4_systolic
 set my_clock_pin clk
-set my_clk_freq_MHz 1000
+set my_clk_freq_MHz 600
 set my_input_delay_ns 0.1
 set my_output_delay_ns 0.1
 

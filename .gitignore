@@ -8,7 +8,8 @@
 *simv
 *csrc
 *.rep
-*WORK
+*WORK*
+*reports*
 *.vcd
 *.svf
 *.vh

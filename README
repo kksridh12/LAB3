@@ -1,1 +1,46 @@
 # LAB3
+
+Part I 
+
+cd sim_fpmac;
+make compile_verdi
+make sim
+make waves_verdi
+
+
+Part II
+
+Sim:
+
+cd sim_part2
+make compile_verdi
+make sim
+make waves_verdi
+
+Synth:
+
+cd synth_p2
+make synth_integer;
+make synth_fp8
+
+Part III
+
+
+# test1
+cd PART3_GIT/PART3_GIT/sim_part3
+make compile_verdi
+make sim
+make waves_verdi
+
+# test2
+
+cd PART3_GIT/PART3_GIT/sim_part3_t2
+make compile_verdi
+make sim
+make waves_verdi
+
+Part IV
+
+
+please refer to README.md file in PART_4 directory
+ 
