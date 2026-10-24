@@ -242,14 +242,6 @@ Remove generated simulation files:
 
     make clean
 
-Save required screenshots before cleanup.
-
-## Submission
-
-Include the RTL, testbench, all required dependencies, Makefile,
-part4.f, and this README.
-
-Include annotated waveform screenshots in the report.
 
 Exclude generated files such as simv, csrc/, simv.daidir/, and
 FSDB/VCD waveform databases from the submission ZIP.
